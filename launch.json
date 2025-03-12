@@ -1,0 +1,14 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Server",
+            "program": "${workspaceFolder}/pdl-rentals-backend/server.js",
+            "cwd": "${workspaceFolder}/pdl-rentals-backend",
+            "runtimeArgs": ["--experimental-modules"],
+            "envFile": "${workspaceFolder}/pdl-rentals-backend/.env"
+        }
+    ]
+}

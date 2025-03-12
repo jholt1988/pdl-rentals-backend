@@ -1,0 +1,7 @@
+node_modules
+
+credentials.json
+token.json
+oauth2.keys.json
+google_cred.json
+.env
