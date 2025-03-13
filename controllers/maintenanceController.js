@@ -1,8 +1,8 @@
-const { Maintenance } = require("../models/request")
+import Maintenance from "../models/maintenancerequest.js";
 
 const maintenanceRequestController = {
     getAllMaintenanceRequest: async (req, res) => {
-        try { const properties = await Maintenance.findAll(); res.json(properties); }
+        try { const requests = await Maintenance.findAll(); res.json(requests); }
         catch (err) { res.status(500).json({ error: err.message }); }
     },
     createMaintenanceRequest: async (req, res) => {
@@ -25,6 +25,15 @@ const maintenanceRequestController = {
             if (!request) return res.status(404).json({ error: "Maintenance not found" });
             await request.destroy();
             res.json({ message: "Maintenance deleted" });
+        } catch (err) {
+            res.status(500).json({ error: err.message });
+        }
+    }, 
+    getMaintenanceRequestById: async (req, res) => {
+        try {
+            const request = await Maintenance.findByPk(req.params.id);
+            if (!request) return res.status(404).json({ error: "Maintenance not found" });
+            res.json(request);
         } catch (err) {
             res.status(500).json({ error: err.message });
         }

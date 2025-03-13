@@ -1,14 +1,9 @@
 import express from 'express';
-import {
-  getAllLeases,
-  getLeaseById,
-  createLease,
-  updateLease,
-  deleteLease,
-} from '../controllers/leaseController.js';
+import leaseController from '../controllers/leaseController.js';
 import { authMiddleware, roleMiddleware } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
+const { getAllLeases, getLeaseById, createLease, updateLease, deleteLease } = leaseController;
 
 router.get('/', authMiddleware, roleMiddleware(['Admin']), getAllLeases);
 router.get('/:id', authMiddleware, roleMiddleware(['Admin']), getLeaseById);

@@ -1,5 +1,5 @@
-const { DefaultTransporter } = require('google-auth-library');
-const {User} = require('../models/user')
+import { DefaultTransporter }from 'google-auth-library';
+import  User  from '../models/user.js'
 
 const authController = {
     register: async (req, res) => {

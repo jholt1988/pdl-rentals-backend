@@ -1,14 +1,10 @@
 import express from 'express';
-import {
-  getAllProperties,
-  getPropertyById,
-  createProperty,
-  updateProperty,
-  deleteProperty,
-} from '../controllers/propertyController.js';
+import propertyController  from '../controllers/propertyController.js';
 import { authMiddleware, roleMiddleware } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
+
+const { getAllProperties, getPropertyById, createProperty, updateProperty, deleteProperty } = propertyController
 
 router.get('/', authMiddleware, getAllProperties);
 router.get('/:id', authMiddleware, roleMiddleware(['Admin']), getPropertyById);

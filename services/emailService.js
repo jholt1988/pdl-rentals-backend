@@ -22,7 +22,7 @@ import { getAuthenticatedClient, main } from './oAuthService.js';import { Google
 
 
 const TOKEN_PATH = path.join(process.cwd(), 'token.json');
-const CREDENTIALS_PATH = path.join(process.cwd(), 'oauth2.keys.json');
+const CREDENTIALS_PATH = path.join(process.cwd(), '/services/oauth2.keys.json');
 
 
 

@@ -1,14 +1,9 @@
 import express from 'express';
-import {
-  getAllContractors,
-  getContractorById,
-  createContractor,
-  updateContractor,
-  deleteContractor,
-} from '../controllers/contractorController.js';
+import contractorController from '../controllers/contractorController.js';
 import { authMiddleware, roleMiddleware } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
+const { getAllContractors, getContractorById, createContractor, updateContractor, deleteContractor, assignRequest, updateInvoice, getInvoices } = contractorController;
 
 router.get('/', authMiddleware, roleMiddleware(['Admin']), getAllContractors);
 router.get('/:id', authMiddleware, roleMiddleware(['Admin']), getContractorById);

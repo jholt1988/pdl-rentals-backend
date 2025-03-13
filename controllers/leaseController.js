@@ -1,4 +1,4 @@
-const {Lease} =  require("../models/lease")
+import * as Lease  from "../models/lease.js"
 
 const leaseController = {
     getAllLeases: async (req, res) => {
@@ -25,6 +25,15 @@ const leaseController = {
             if (!lease) return res.status(404).json({ error: "Lease not found" });
             await lease.destroy();
             res.json({ message: "Lease deleted" });
+        } catch (err) {
+            res.status(500).json({ error: err.message });
+        }
+    }, 
+    getLeaseById: async (req, res) => {
+        try {
+            const lease = await Lease.findByPk(req.params.id);
+            if (!lease) return res.status(404).json({ error: "Lease not found" });
+            res.json(lease);
         } catch (err) {
             res.status(500).json({ error: err.message });
         }

@@ -1,14 +1,10 @@
 import express from 'express';
-import {
-  getAllExpenses,
-  getExpenseById,
-  createExpense,
-  updateExpense,
-  deleteExpense,
-} from '../controllers/expenseController.js';
+import expenseController from '../controllers/expenseController.js';
 import { authMiddleware, roleMiddleware } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
+
+const { getAllExpenses, getExpenseById, createExpense, updateExpense, deleteExpense } = expenseController
 
 router.get('/', authMiddleware, roleMiddleware(['Admin']), getAllExpenses);
 router.get('/:id', authMiddleware, roleMiddleware(['Admin']), getExpenseById);

@@ -1,5 +1,5 @@
 import cron from "node-cron";
-import db from "../models";
+import db from "../models/index.js";
 import { Op } from "sequelize";
 
 const { Lease, LedgerEntry } = db;
@@ -33,6 +33,6 @@ export const runRentChargeJob = async () => {
 };
 
 // Schedule: Run at midnight on the 1st of every month.
-const rentJob = cron.schedule("0 0 1 * *", runRentChargeJob);
+const rentChargeJob = () => cron.schedule("0 0 1 * *", runRentChargeJob);
 
-export { rentJob };
+export { rentChargeJob };

@@ -1,5 +1,10 @@
 import express from 'express';
-import {
+import paymentController from '../controllers/paymentController.js';
+import { authMiddleware, roleMiddleware } from '../middleware/authMiddleware.js';
+
+const router = express.Router();
+
+const {
   getAllPayments,
   getPaymentById,
   createPayment,
@@ -8,11 +13,8 @@ import {
   sendPaymentReceipt,
   sendTenantPaymentStatement,
   getTenantBalances,
-  viewTenantStatement,
-} from '../controllers/paymentController.js';
-import { authMiddleware, roleMiddleware } from '../middleware/authMiddleware.js';
-
-const router = express.Router();
+  viewTenantStatement
+} = paymentController;
 
 router.get('/', authMiddleware, roleMiddleware(['Admin']), getAllPayments);
 router.get('/:id', authMiddleware, roleMiddleware(['Admin']), getPaymentById);

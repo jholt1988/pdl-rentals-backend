@@ -42,6 +42,6 @@ export const runPaymentReminderJob = async () => {
 };
 
 // Schedule job to run every day at 8 AM
-const paymentReminder = cron.schedule("0 8 * * *", runPaymentReminderJob);
+const paymentReminderJob = () => cron.schedule("0 8 * * *", runPaymentReminderJob);
 
-export { paymentReminder };
+export { paymentReminderJob };

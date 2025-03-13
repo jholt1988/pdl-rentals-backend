@@ -1,4 +1,6 @@
-module.exports = (sequelize, DataTypes) => {
+// lease.js'
+
+export default (sequelize, DataTypes) => {
   const Lease = sequelize.define("Lease", {
     propertyId: { type: DataTypes.INTEGER, allowNull: false },
     tenantId: { type: DataTypes.INTEGER, allowNull: false },

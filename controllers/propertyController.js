@@ -1,4 +1,4 @@
-const {Property} =  require("../models/property")
+import Property from  "../models/property.js"
 
 const propertyController = {
     getAllProperties: async (req, res) => {
@@ -25,6 +25,15 @@ const propertyController = {
             if (!property) return res.status(404).json({ error: "Property not found" });
             await property.destroy();
             res.json({ message: "Property deleted" });
+        } catch (err) {
+            res.status(500).json({ error: err.message });
+        }
+    },
+    getPropertyById: async (req, res) => {
+        try {
+            const property = await Property.findByPk(req.params.id);
+            if (!property) return res.status(404).json({ error: "Property not found" });
+            res.json(property);
         } catch (err) {
             res.status(500).json({ error: err.message });
         }
