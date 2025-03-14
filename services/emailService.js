@@ -58,7 +58,7 @@ function getAuthorizationUrl(state) {
 async function exchangeCode() {
   try {
     const authorizationCode = await authenticate({
-      keyfilePath: CREDENTIALS_PATH,
+      keyfilePath: process.env.CREDENTIALS_PATH,
       scopes: SCOPES,
     })
     const { tokens } = await oauth2Client.getToken(authorizationCode);
@@ -107,14 +107,13 @@ async function loadSavedCredentialsIfExist() {
  * @return {Promise<void>}
  */
 async function saveCredentials(client) {
-  const content = await fs.readFile(CREDENTIALS_PATH);
+  
   const keys = JSON.parse(content);
-  const key = keys.installed || keys.web;
   const payload = JSON.stringify({
     type: 'authorized_user',
-    client_id: key.client_id,
-    client_secret: key.client_secret,
-    refresh_token: client.credentials.refresh_token,
+    client_id: process.env.client_id,
+    client_secret: process.env.client_secret,
+    refresh_token: process.env.refresh_token
   });
   await fs.writeFile(TOKEN_PATH, payload);
 }
@@ -130,7 +129,7 @@ async function authorize() {
     return client;
   }
     client = await authenticate({
-      keyfilePath: CREDENTIALS_PATH,
+      keyfilePath: process.env.CREDENTIALS_PATH,
       scopes: SCOPES,
     });
     await saveCredentials(client);
