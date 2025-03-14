@@ -51,7 +51,8 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /home/ubuntu/pdl-rentals-backend
-            git pull origin master
+            git reset --hard
+            git pull origin master --allow-unrelated-histories
             docker compose pull  # Pull latest image instead of building
             docker compose down --remove-orphans
             docker compose up -d
