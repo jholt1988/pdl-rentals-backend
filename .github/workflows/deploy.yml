@@ -53,6 +53,6 @@ jobs:
             cd /home/ubuntu/pdl-rentals-backend
             git reset --hard
             git pull origin master --allow-unrelated-histories
-            docker compose pull  # Pull latest image instead of building
-            docker compose down --remove-orphans
-            docker compose up -d
+            sudo docker compose pull  # Pull latest image instead of building
+            sudo docker compose down --remove-orphans
+            sudo docker compose up -d
