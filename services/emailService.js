@@ -5,7 +5,7 @@ import { authenticate } from '@google-cloud/local-auth';
 import fs from 'fs/promises';
 import process from 'process';
 import path from 'path';
-import dotenv from 'dotenv';
+import"dotenv/config"
 import mime from "mime";
 
 export function sendPaymentStatement() {
@@ -22,7 +22,7 @@ import { getAuthenticatedClient, main } from './oAuthService.js';import { Google
 
 
 const TOKEN_PATH = path.join(process.cwd(), 'token.json');
-const CREDENTIALS_PATH = path.join(process.cwd(), '/services/oauth2.keys.json');
+
 
 
 
@@ -42,8 +42,8 @@ const SCOPES = [
   
 ];
 
-const credentials = JSON.parse(await fs.readFile(CREDENTIALS_PATH));
-const { client_id, client_secret } = credentials.web;
+
+const { client_id, client_secret } = process.env;
 const oauth2Client = new OAuth2Client(client_id, client_secret, REDIRECT_URI);
 
 function getAuthorizationUrl(state) {
