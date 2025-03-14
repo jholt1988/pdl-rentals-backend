@@ -44,7 +44,7 @@ jobs:
           cache-to: type=inline
       
       - name: Deploy to Server
-        uses: appleboy/drone-action@master
+        uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SERVER_IP }}
           username: ${{ secrets.SERVER_USER }}
