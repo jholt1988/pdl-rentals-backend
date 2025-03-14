@@ -2,7 +2,7 @@ import { OAuth2Client } from 'google-auth-library';
 import http from 'http';
 import open from 'open';
 import destroyer from 'server-destroy';
-import keys from './oauth2.keys.json' with { type: 'json' };
+import 'dotenv/config';
 
 /**
  * Create a new OAuth2Client, and go through the OAuth2
@@ -11,9 +11,9 @@ import keys from './oauth2.keys.json' with { type: 'json' };
 export function getAuthenticatedClient() {
   return new Promise((resolve, reject) => {
     const oAuth2Client = new OAuth2Client(
-      keys.web.client_id,
-      keys.web.client_secret,
-      keys.web.redirect_uris
+      process.env.OAUTHWEB.web.client_id,
+      process.env.OAUTHWEB.web.client_secret,
+      process.env.OAUTHWEB.web.redirect_uris
     );
 
     // Generate the URL that will be used for the consent dialog
