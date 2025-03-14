@@ -11,9 +11,9 @@ import 'dotenv/config';
 export function getAuthenticatedClient() {
   return new Promise((resolve, reject) => {
     const oAuth2Client = new OAuth2Client(
-      process.env.OAUTHWEB.web.client_id,
-      process.env.OAUTHWEB.web.client_secret,
-      process.env.OAUTHWEB.web.redirect_uris
+      process.env.CLIENT_ID,
+      process.env.CLIENT_SECRETt,
+      process.env.REDIRECT_URIS
     );
 
     // Generate the URL that will be used for the consent dialog
