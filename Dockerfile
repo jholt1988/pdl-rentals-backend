@@ -1,5 +1,5 @@
 # Use official Node.js image
-FROM node:18
+ FROM node:23-slim
 
 # Set working directory
 WORKDIR /
