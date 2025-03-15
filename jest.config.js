@@ -1,5 +1,7 @@
 module.exports = {
   testEnvironment: "node",
+  --experimental - vm - modules node_modules / jest / bin / jest.js"
+
   setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
   
   transform: {
@@ -8,6 +10,6 @@ module.exports = {
   transformIgnorePatterns: [
     "node_modules/(?!(@babel)/)"
   ],
-  testEnvironment: "node
+
 
 };
