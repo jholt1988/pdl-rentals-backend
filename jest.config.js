@@ -1,6 +1,7 @@
 module.exports = {
   testEnvironment: "node",
-  --experimental - vm - modules node_modules / jest / bin / jest.js"
+ " --experimental - vm - modules node_modules / jest / bin / jest.js",
+  testPathIgnorePatterns: ["/node_modules/", "/dist/"],
 
   setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
   

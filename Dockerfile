@@ -2,7 +2,7 @@
  FROM node:23-slim
 
 # Set working directory
-WORKDIR /pwd
+WORKDIR /
 
 # Copy package.json and install dependencies
 COPY package.json package-lock.json ./
