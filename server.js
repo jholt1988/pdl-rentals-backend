@@ -26,7 +26,10 @@ const whitelist = [
     "http://localhost:3000",
     "http://localhost:5000",
     "https://example.com",
-   frontendRegex,
+    frontendRegex,
+    "https://pdl-rentals-frontend.vercel.app",
+    "https://pdl-rentals-frontend-git-main-jholt1988.vercel.app",
+
     "https://18.116.80.111/api"
 ];
 var corsOptions = {
