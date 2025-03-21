@@ -20,12 +20,23 @@ import paymentRoutes from "./routes/paymentRoutes.js";
 import maintenanceRoutes from "./routes/maintenanceRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
 
-const corsOptions = {
-  origin: "https://pdl-rentals-frontend.vercel.app",
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  preflightContinue: true,
-  optionsSuccessStatus: 204,
-};
+
+const whitelist = [
+  "http://localhost:3000",
+  "http://localhost:5000",
+  "https://example.com",
+    "https://pdl-rentals-frontend.vercel.app",
+  "https://18.116.80.111/api"
+];
+var corsOptions = {
+    origin: function (origin, callback) {
+        if (whitelist.indexOf(origin) !== -1 || !origin) {
+            callback(null, true)
+        } else {
+            callback(new Error('Not allowed by CORS'))
+        }
+    }
+}
 const app = express();
 app.use(express.json());
 app.use(helmet());
