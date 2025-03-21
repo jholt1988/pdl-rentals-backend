@@ -22,7 +22,7 @@ import adminRoutes from "./routes/adminRoutes.js";
 
 const app = express();
 app.use(express.json());
-app.use(cors({ origin: "*" }));
+app.use(cors({ origin: false }));
 app.use(helmet());
 app.use(morgan("dev"));
 
