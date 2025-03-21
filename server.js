@@ -25,7 +25,7 @@ app.use(express.json());
 app.use(helmet());
 app.use(morgan("dev"));
 app.options('*', cors());
-app.use(cors());
+
 
 // Middleware for authentication
 const authenticateToken = (req, res, next) => {
