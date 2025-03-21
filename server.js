@@ -22,11 +22,11 @@ import adminRoutes from "./routes/adminRoutes.js";
 
 
 const whitelist = [
-  "http://localhost:3000",
-  "http://localhost:5000",
-  "https://example.com",
-    "https://pdl-rentals-frontend.vercel.app",
-  "https://18.116.80.111/api"
+    "http://localhost:3000",
+    "http://localhost:5000",
+    "https://example.com",
+    /^https:\/\/pdl-rentals-frontend[a-zA-Z0-9]*\.vercel\.app$/,
+    "https://18.116.80.111/api"
 ];
 var corsOptions = {
     origin: function (origin, callback) {
@@ -41,10 +41,10 @@ const app = express();
 app.use(express.json());
 app.use(helmet());
 app.use(morgan("dev"));
-app.use(cors(corsOptions));
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
-app.options('*', cors(corsOptions));
+app.use('*', cors(corsOptions));
 
 
 // Middleware for authentication
