@@ -20,12 +20,13 @@ import paymentRoutes from "./routes/paymentRoutes.js";
 import maintenanceRoutes from "./routes/maintenanceRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
 
+const frontendRegex= new RegExp('https://pdl-rentals-frontend[a-zA-Z0-9]*\.vercel\.app');
 
 const whitelist = [
     "http://localhost:3000",
     "http://localhost:5000",
     "https://example.com",
-    /^https:\/\/pdl-rentals-frontend[a-zA-Z0-9]*\.vercel\.app$/,
+   frontendRegex,
     "https://18.116.80.111/api"
 ];
 var corsOptions = {
