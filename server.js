@@ -22,9 +22,10 @@ import adminRoutes from "./routes/adminRoutes.js";
 
 const app = express();
 app.use(express.json());
-app.use(cors({ origin: false }));
 app.use(helmet());
 app.use(morgan("dev"));
+app.options('*', cors());
+app.use(cors());
 
 // Middleware for authentication
 const authenticateToken = (req, res, next) => {
