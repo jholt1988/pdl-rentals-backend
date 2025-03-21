@@ -1,6 +1,9 @@
-import { DefaultTransporter }from 'google-auth-library';
-import db from '../models/index.js'
-import bcrypt from 'bcryptjs';
+import { DefaultTransporter } from 'google-auth-library';
+import db from '../models/index.js';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import crypto from 'crypto';
+import nodemailer from 'nodemailer';
 
 const User = db.User;
 const authController = {
