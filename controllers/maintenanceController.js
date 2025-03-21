@@ -1,5 +1,5 @@
-import Maintenance from "../models/maintenancerequest.js";
-
+import db from "../models/index.js";
+const Maintenance = db.Maintenance
 const maintenanceRequestController = {
     getAllMaintenanceRequest: async (req, res) => {
         try { const requests = await Maintenance.findAll(); res.json(requests); }

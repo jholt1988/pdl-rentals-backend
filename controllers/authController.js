@@ -1,5 +1,6 @@
 import { DefaultTransporter }from 'google-auth-library';
-import  db  from '../models/index.js'
+import db from '../models/index.js'
+import bcrypt from 'bcryptjs';
 
 const User = db.User;
 const authController = {

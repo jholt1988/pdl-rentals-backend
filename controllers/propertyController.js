@@ -1,5 +1,6 @@
-import Property from  "../models/property.js"
+import db from  "../models/index.js"
 
+const Property = db.Property
 const propertyController = {
     getAllProperties: async (req, res) => {
         try { const properties = await Property.findAll(); res.json(properties); }

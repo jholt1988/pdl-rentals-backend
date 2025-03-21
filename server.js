@@ -1,5 +1,6 @@
 // Updated server.js with PostgreSQL (Sequelize), Integrated Controllers, Full CRUD Operations, Authentication with RBAC, Password Reset & Refresh Tokens
-import 'dotenv'
+import dotenv from 'dotenv';
+dotenv.config();
 import express from"express";
 import cors from"cors";
 import helmet from"helmet";
@@ -21,7 +22,7 @@ import adminRoutes from "./routes/adminRoutes.js";
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(cors({ origin: "*" }));
 app.use(helmet());
 app.use(morgan("dev"));
 
