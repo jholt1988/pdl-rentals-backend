@@ -21,17 +21,16 @@ import maintenanceRoutes from "./routes/maintenanceRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
 
 const corsOptions = {
-    "origin": "*",
-    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
-    "preflightContinue": true,
-    "optionsSuccessStatus": 204
-}
+  origin: "https://pdl-rentals-frontend.vercel.app",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  preflightContinue: true,
+  optionsSuccessStatus: 204,
+};
 const app = express();
 app.use(express.json());
 app.use(helmet());
 app.use(morgan("dev"));
-app.options('*', cors(corsOptions));
-
+app.use(cors(corsOptions));
 
 
 // Middleware for authentication
