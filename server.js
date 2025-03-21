@@ -57,7 +57,7 @@ const authorizeRole = (roles) => {
 app.use("/api/leases", authenticateToken, leaseRoutes);
 // app.use("/api/auth", authRoutes);
 app.use("/api/properties", authenticateToken, propertyRoutes);
-app.use("/api/users", authenticateToken, authorizeRole(["admin"]), userRoutes);
+app.use("/api/users", userRoutes);
 app.use("/api/payments", authenticateToken, paymentRoutes);
 app.use("/api/maintenance", authenticateToken, maintenanceRoutes);
 app.use("/api/admin", authenticateToken, adminRoutes);

@@ -1,18 +1,12 @@
-# Use official Node.js image
- FROM node:23-slim
+FROM node:23-alpine
 
-# Set working directory
-WORKDIR /
+WORKDIR /app
 
-# Copy package.json and install dependencies
 COPY package.json package-lock.json ./
-RUN npm install
+RUN --mount=type=cache,target=/root/.npm npm install
 
-# Copy all files
 COPY . .
 
-# Expose port
 EXPOSE 5000
 
-# Start the application
 CMD ["node", "server.js"]

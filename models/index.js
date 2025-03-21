@@ -16,7 +16,7 @@ const db = {};
 // Configure database connection
 const sequelize = new Sequelize({
   dialect: "postgres",
-  host: "localhost", 
+  host: "18.116.80.111", 
   port: 5432,
   username: "postgres",
   password: "2284",
