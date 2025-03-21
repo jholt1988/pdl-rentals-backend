@@ -54,9 +54,9 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /home/ubuntu/pdl-rentals-backend
+            cd /home/ubuntu/backend
             git reset --hard
-            git pull origin master --allow-unrelated-histories
-            sudo docker compose pull  # Pull latest image instead of building
-            sudo docker compose down --remove-orphans
-            sudo docker compose up -d
+            git pull origin master
+            sudo docker-compose pull  # Pull latest image instead of building
+            sudo docker-compose down --remove-orphans
+            sudo docker-compose up -d
