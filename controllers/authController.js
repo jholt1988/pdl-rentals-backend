@@ -1,6 +1,6 @@
 import { DefaultTransporter } from 'google-auth-library';
 import db from '../models/index.js';
-import bcrypt from 'bcrypt';
+import * as bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 import nodemailer from 'nodemailer';
