@@ -35,7 +35,9 @@ var corsOptions = {
             callback(new Error('Not allowed by CORS'))
         }
     }
-}
+}// Corrected code: Set only one allowed origin.
+
+
 const app = express();
 app.use(express.json());
 app.use(helmet());
@@ -44,7 +46,14 @@ app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-app.use(cors(corsOptions));
+app.use((req, res, next) => {
+    // Remove the following line: res.setHeader('Access-Control-Allow-Origin', '*');
+    // Add this one instead:
+    res.setHeader('Access-Control-Allow-Origin', 'https://pdl-rentals-frontend.vercel.app'); // Allow only this origin
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    next();
+});
 
 // Middleware for authentication
 const authenticateToken = (req, res, next) => {
