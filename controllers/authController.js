@@ -20,7 +20,7 @@ const authController = {
     login: async (req, res) => {
         try {
             const { email, password } = await req.body;
-
+console.log(email,password)
             const user = await User.findOne({ where: { email } });
             if (!user) return res.status(400).json({ error: "Invalid credentials" });
 
