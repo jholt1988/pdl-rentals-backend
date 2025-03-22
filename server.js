@@ -43,8 +43,8 @@ app.use(morgan("dev"));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
-app.options('*', cors(corsOptions));
-
+app.options(cors(corsOptions));
+app.use(cors(corsOptions));
 
 // Middleware for authentication
 const authenticateToken = (req, res, next) => {
