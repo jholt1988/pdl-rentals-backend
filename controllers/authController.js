@@ -83,7 +83,7 @@ console.log(email,password)
             const user = await User.findOne({ where: { resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() } } });
             if (!user) return res.status(400).json({ error: "Invalid or expired token" });
 
-            user.password = await bcrypt.hash(newPassword, 10);
+            user.password = await hash(newPassword, 10);
             user.resetPasswordToken = null;
             user.resetPasswordExpires = null;
             await user.save();
