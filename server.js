@@ -8,7 +8,7 @@ import morgan from"morgan";
 import { sequelize } from"./models/index.js";
 
 import jwt from"jsonwebtoken";
-import bcrypt from"bcryptjs";
+;
 import crypto from"crypto";
 import runJobs from './jobs/index.js'
 
