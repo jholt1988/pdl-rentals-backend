@@ -1,6 +1,6 @@
 import { DefaultTransporter } from 'google-auth-library';
 import db from '../models/index.js';
-import * as bcrypt from 'bcrypt';
+import { hash, compare } from "bcrypt";
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 import nodemailer from 'nodemailer';
@@ -10,7 +10,7 @@ const authController = {
     register: async (req, res) => {
         try {
             const { name, email, password, role } = req.body;
-            const hashedPassword = await bcrypt.hash(password, 10);
+            const hashedPassword = await hash(password, 10);
             const user = await User.create({ name, email, password: hashedPassword, role });
             res.status(201).json({ message: "User registered successfully" });
         } catch (err) {
@@ -24,7 +24,7 @@ console.log(email,password)
             const user = await User.findOne({ where: { email } });
             if (!user) return res.status(400).json({ error: "Invalid credentials" });
 
-            const isMatch = await bcrypt.compare(password, user.password);
+            const isMatch = await compare(password, user.password);
             if (!isMatch) return res.status(400).json({ error: "Invalid credentials" });
 
             const accessToken = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: "1h" });
