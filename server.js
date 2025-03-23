@@ -4,7 +4,8 @@ dotenv.config();
 import express from"express";
 import cors from"cors";
 import helmet from"helmet";
-import morgan from"morgan";
+import morgan from "morgan";
+import {bodyParser} from "body-parser";
 import { sequelize } from"./models/index.js";
 
 import jwt from"jsonwebtoken";
@@ -37,24 +38,34 @@ var corsOptions = {
     }
 }// Corrected code: Set only one allowed origin.
 
+const corsOptions = {
+    origin: "https://pdl-rentals-frontend.vercel.app",
+    credentials: true, //access-control-allow-credentials:
+    optionSuccessStatus: 200,
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+
+};
 
 const app = express();
 app.use(express.json());
 app.use(helmet());
 app.use(morgan("dev"));
+app.use(cors(corsOptions));
+app.use(bodyParser.json()); 
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 
-app.use((req, res, next) => {
-    // Remove the following line: res.setHeader('Access-Control-Allow-Origin', '*');
-    // Add this one instead:
-    res.setHeader('Access-Control-Allow-Origin', 'https://pdl-rentals-frontend.vercel.app'); // Allow only this origin
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    next();
-});
+// app.use((req, res, next) => {
+//     // Remove the following line: res.setHeader('Access-Control-Allow-Origin', '*');
+//     // Add this one instead:
+//     res.setHeader('Access-Control-Allow-Origin', 'https://pdl-rentals-frontend.vercel.app'); // Allow only this origin
+//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+//     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+//     next();
+// });
 
 // Middleware for authentication
 const authenticateToken = (req, res, next) => {
