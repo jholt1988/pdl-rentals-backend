@@ -42,7 +42,10 @@ const corsOptions = {
     origin: "https://pdl-rentals-frontend.vercel.app",
     credentials: true, //access-control-allow-credentials:
     optionSuccessStatus: 200,
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
+    allowedHeaders: "Content-Type, Authorization, X-Requested-With, Accept, Origin, Access-Control-Allow-Origin, Access-Control-Allow-Headers, Access-Control-Allow-Methods, Access-Control-Allow-Credentials",
+    exposedHeaders: "Access-Control-Allow-Origin, Access-Control-Allow-Headers, Access-Control-Allow-Methods, Access-Control-Allow-Credentials"
+}
 
 };
 
