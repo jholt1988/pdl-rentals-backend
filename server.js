@@ -54,7 +54,7 @@ app.use(express.static("public"));
 
 
 app.use(function (req, res, next) {
-    const allowedOrigins = ["https://localhost:4002"];
+    const allowedOrigins = ["https://pdl-rentals-frontend.vercel.app"];
     const origin = req.headers.origin;
 
     if (allowedOrigins.indexOf(origin) != -1) {
