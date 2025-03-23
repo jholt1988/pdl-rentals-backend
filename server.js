@@ -38,16 +38,14 @@ var corsOptions = {
     }
 }// Corrected code: Set only one allowed origin.
 
-const corsOptions = {
-    origin: "*"
-}
+
 
 
 const app = express();
 app.use(express.json());
 app.use(helmet());
-app.use(morgan("dev"));
-app.use(cors(corsOptions));
+app.use(morgan());
+
 app.use(bodyParser.json()); 
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -55,15 +53,32 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 
-// app.use((req, res, next) => {
-//     // Remove the following line: res.setHeader('Access-Control-Allow-Origin', '*');
-//     // Add this one instead:
-//     res.setHeader('Access-Control-Allow-Origin', 'https://pdl-rentals-frontend.vercel.app'); // Allow only this origin
-//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-//     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-//     next();
-// });
+app.use(function (req, res, next) {
+    const allowedOrigins = ["https://localhost:4002"];
+    const origin = req.headers.origin;
 
+    if (allowedOrigins.indexOf(origin) != -1) {
+        res.header("Access-Control-Allow-Origin", origin);
+    } else {
+        res.header("Access-Control-Allow-Origin", "*");
+    }
+    res.header("Access-Control-Allow-Credentials", "true");
+    res.header(
+        "Access-Control-Allow-Methods",
+        "GET, POST, OPTIONS, PUT, PATCH, DELETE"
+    );
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin,Content-Type,Authorization,Accept,X-Requested-With,Cookie,User-Agent,Host,Referer"
+    );
+    res.header("Access-Control-Expose-Headers", "Content-Disposition");
+    if ("OPTIONS" == req.method) {
+        res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
+        res.sendStatus(200);
+    } else {
+        next();
+    }
+});
 // Middleware for authentication
 const authenticateToken = (req, res, next) => {
     const token = req.header("Authorization");
