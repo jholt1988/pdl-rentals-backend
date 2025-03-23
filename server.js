@@ -53,7 +53,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 
-app.use(function (req, res, next) {
+app.options(function (req, res, next) {
     const allowedOrigins = ["https://pdl-rentals-frontend.vercel.app"];
     const origin = req.headers.origin;
 
