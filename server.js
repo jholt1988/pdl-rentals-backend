@@ -53,32 +53,32 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 
-app.options(function (req, res, next) {
-    const allowedOrigins = ["https://pdl-rentals-frontend.vercel.app"];
-    const origin = req.headers.origin;
+// app.options(function (req, res, next) {
+//     const allowedOrigins = ["https://pdl-rentals-frontend.vercel.app"];
+//     const origin = req.headers.origin;
 
-    if (allowedOrigins.indexOf(origin) != -1) {
-        res.header("Access-Control-Allow-Origin", origin);
-    } else {
-        res.header("Access-Control-Allow-Origin", "*");
-    }
-    res.header("Access-Control-Allow-Credentials", "true");
-    res.header(
-        "Access-Control-Allow-Methods",
-        "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-    );
-    res.header(
-        "Access-Control-Allow-Headers",
-        "Origin,Content-Type,Authorization,Accept,X-Requested-With,Cookie,User-Agent,Host,Referer"
-    );
-    res.header("Access-Control-Expose-Headers", "Content-Disposition");
-    if ("OPTIONS" == req.method) {
-        res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
-        res.sendStatus(200);
-    } else {
-        next();
-    }
-});
+//     if (allowedOrigins.indexOf(origin) != -1) {
+//         res.header("Access-Control-Allow-Origin", origin);
+//     } else {
+//         res.header("Access-Control-Allow-Origin", "*");
+//     }
+//     res.header("Access-Control-Allow-Credentials", "true");
+//     res.header(
+//         "Access-Control-Allow-Methods",
+//         "GET, POST, OPTIONS, PUT, PATCH, DELETE"
+//     );
+//     res.header(
+//         "Access-Control-Allow-Headers",
+//         "Origin,Content-Type,Authorization,Accept,X-Requested-With,Cookie,User-Agent,Host,Referer"
+//     );
+//     res.header("Access-Control-Expose-Headers", "Content-Disposition");
+//     if ("OPTIONS" == req.method) {
+//         res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
+//         res.sendStatus(200);
+//     } else {
+//         next();
+//     }
+// });
 // Middleware for authentication
 const authenticateToken = (req, res, next) => {
     const token = req.header("Authorization");
