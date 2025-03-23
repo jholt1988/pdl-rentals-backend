@@ -47,7 +47,7 @@ const corsOptions = {
     exposedHeaders: "Access-Control-Allow-Origin, Access-Control-Allow-Headers, Access-Control-Allow-Methods, Access-Control-Allow-Credentials"
 }
 
-};
+
 
 const app = express();
 app.use(express.json());
