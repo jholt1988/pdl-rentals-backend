@@ -21,7 +21,7 @@ const sequelize = new Sequelize({
   username: "postgres",
   password: "2284",
   database: "PDL_development",
-  logging: true
+ logging:(msg)=>console.log(msg)
 });
 
 // Load models
