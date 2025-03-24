@@ -7,6 +7,6 @@ RUN --mount=type=cache,target=/root/.npm npm install
 
 COPY . .
 
-EXPOSE 5000
+EXPOSE 500[0
 
 CMD ["node", "server.js"]

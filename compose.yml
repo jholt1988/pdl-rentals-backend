@@ -1,6 +1,15 @@
 
 services:
-  
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    networks:
+      - pdl-backend-network
+    volumes:
+        - ./nginx.conf:/etc/nginx/nginx.conf
+        - ./nginx.conf:/etc/nginx/conf.d/default.conf
+   
 
   db:
     image: postgres:15
@@ -11,6 +20,8 @@ services:
       POSTGRES_DB: PDL_development
     ports:
       - "5433:5432"
+    networks:
+      - pdl-backend-network
     volumes:
       - pgdata:/var/lib/postgresql/data
 
@@ -28,6 +39,12 @@ services:
     ports:
       - "5000:5000"
     command: ["node", "server.js"]
+    networks:
+      - pdl-backend-network
+    restart: always
 
+networks:
+  pdl-backend-network:
+    external: true
 volumes:
   pgdata:
