@@ -43,6 +43,6 @@ services:
 
 networks:
   pdl-backend-network:
-    external: true
+    driver: bridge
 volumes:
   pgdata:
