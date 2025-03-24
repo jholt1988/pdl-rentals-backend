@@ -5,11 +5,11 @@ import express from"express";
 import cors from"cors";
 import helmet from"helmet";
 import morgan from "morgan";
-import {bodyParser} from "body-parser";
+
 import { sequelize } from"./models/index.js";
 
 import jwt from"jsonwebtoken";
-;
+
 import crypto from"crypto";
 import runJobs from './jobs/index.js'
 
@@ -81,7 +81,7 @@ const authenticateToken = (req, res, next) => {
     if (!token) return res.status(401).json({ error: "Access denied" });
 
     try {
-        const verified = jwt.verify(token.replace("Bearer ", ""), process.env.JWT_SECRET));
+        const verified = jwt.verify(token.replace("Bearer ", ""), process.env.JWT_SECRET);
         req.user = verified;
         next();
     } catch (err) {
