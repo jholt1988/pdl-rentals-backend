@@ -22,6 +22,7 @@ const authController = {
             const { email, password } = await req.body;
 console.log(email,password)
             const user = await User.findOne({ where: { email } });
+            console.log(user)
             if (!user) return res.status(400).json({ error: "Invalid credentials" });
 
             const isMatch = await compare(password, user.password);
@@ -29,7 +30,8 @@ console.log(email,password)
 
             const accessToken = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: "1h" });
             const refreshToken = jwt.sign({ id: user.id }, process.env.JWT_REFRESH_SECRET, { expiresIn: "7d" });
-            res.status(200).json({ accessToken, refreshToken, user });
+            // res.status(200).json({ accessToken, refreshToken, user })
+        res.send({ accessToken, refreshToken, user });
         } catch (err) {
             res.status(500).json({ error: err.message });
         }
