@@ -19,7 +19,7 @@ services:
     depends_on:
       - db
     environment:
-      DATABASE_URL: postgres://postgres:2284@db:5432/PDL_development
+      DATABASE_URL: postgres://postgres:2284@backend-db-1:5432/PDL_development
       PORT: 5000
       JWT_SECRET: m1+HYtFe2p4HvHAE8lscwxxy9FeAQ6N86pjwYYzWeweS0MjjSW90nDX2m/FbERlKrZ8KYhESkDsQG+tS9I6/hA==
       JWT_REFRESH_SECRET: m1+HYtFe2p4HvHAE8lscwxxy9FeAQ6N86pjwYYzWeweS0MjjSW90nDX2m/FbERlKrZ8KYhESkDsQG+tS9I6/hA==
