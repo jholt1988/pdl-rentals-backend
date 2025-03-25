@@ -70,9 +70,7 @@ jobs:
         id: health-check-backend
         run: 0 echo "Waiting for backend to start..."
              sleep 10
-             curl --fail http://your-server-ip:5000/health || exit 1
+             curl --fail http://${{ secrets.SERVER_IP }}5000/health || exit 1
     
       
-      - name: Health Check
-        id: health-check
-        run: curl --fail https://your-api.com/health || exit 1
+      
