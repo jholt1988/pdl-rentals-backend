@@ -1,76 +1,35 @@
-name: Deploy to Production  # Added workflow name for better identification
 
-on:
-  push:
-    branches:
-      - master
-  workflow_dispatch:  # Added manual trigger option
+services:
+ backend:
+    build:
+      context: ./backend
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      - db
+    restart: unless-stopped
 
-jobs:
-  build-and-deploy:  # Combined jobs for better efficiency
-    runs-on: ubuntu-latest
-    
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3  # Updated to latest version
-      
-      - name: Set up Node.js
-        uses: actions/setup-node@v3  # Updated to latest version
-        with:
-          node-version: 18
-          cache: 'npm'  # Added caching for faster builds
-      
-      - name: Install Dependencies
-        run: npm ci  # Using ci instead of install for cleaner, more reliable builds
-        
-      - name: Set up SSH
-        uses: webfactory/ssh-agent@v0.9.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY_2 }}
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "80:80"  # expose the frontend
+    depends_on:
+      - backend
+    restart: unless-stopped
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2  # Added for better Docker build performance
-    
-          
-      - name: Login to Docker Hub
-        uses: docker/login-action@v2  # Using official Docker login action
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-      
-      - name: Build and Push Docker Image
-        uses: docker/build-push-action@v4  # Using optimized Docker build action
-        with:
-          context: .
-          push: true
-          tags: jholt1988/pdl-rentals-backend:latest,jholt1988/pdl-rentals-backend:${{ github.sha }}
-          cache-from: type=registry,ref=jholt1988/pdl-rentals-backend:latest
-          cache-to: type=inline
-
-        
-      
-      - name: Deploy to Server
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SERVER_IP }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            cd /home/ubuntu/backend
-            git reset --hard
-            git pull origin master
-            sudo apt-get install docker-compose-plugin
-            docker compose version
-            sudo docker compose pull  # Pull latest image instead of building
-            docker image prune -af --filter "until=24h"  # Clean up old images
-            sudo docker compose down --remove-orphans
-            sudo docker compose up -d
-            echo "Backend deployed successfully!"
-      - name: Health Check
-        id: health-check-backend
-        run: 0 echo "Waiting for backend to start..."
-             sleep 10
-             curl --fail http://${{ secrets.SERVER_IP }}5000/health || exit 1
-    
-      
-      
+  db:
+    image: postgres:15
+    ports:
+      - "5434:5432"
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    restart: unless-stopped
+volumes:
+  pgdata:
