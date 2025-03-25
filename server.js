@@ -101,6 +101,9 @@ const authorizeRole = (roles) => {
 
 
 
+app.get('/health', (req, res) => {
+    res.status(200).json({ status: 'ok' });
+});
 
 
 // Use Routes with authentication

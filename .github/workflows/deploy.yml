@@ -59,6 +59,20 @@ jobs:
             cd /home/ubuntu/backend
             git reset --hard
             git pull origin master
+            sudo apt-get install docker-compose-plugin
+            docker compose version
             sudo docker compose pull  # Pull latest image instead of building
+            docker image prune -af --filter "until=24h"  # Clean up old images
             sudo docker compose down --remove-orphans
             sudo docker compose up -d
+            echo "Backend deployed successfully!"
+      - name: Health Check
+        id: health-check-backend
+        run: 0 echo "Waiting for backend to start..."
+             sleep 10
+             curl --fail http://your-server-ip:5000/health || exit 1
+    
+      
+      - name: Health Check
+        id: health-check
+        run: curl --fail https://your-api.com/health || exit 1

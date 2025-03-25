@@ -1,42 +1,37 @@
+version: "3.8"
+
+
 
 services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      - db
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:5000 || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+
   
 
   db:
     image: postgres:15
-    restart: always
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: "2284"
-      POSTGRES_DB: PDL_development
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
     ports:
-      - "5433:5432"
-    networks:
-      - pdl-backend-network
+      - "5434:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
 
-  backend:
-    build: .
-    depends_on:
-      - db
-    environment:
-      DATABASE_URL: postgres://postgres:2284@backend-db-1:5432/PDL_development
-      JWT_SECRET: m1+HYtFe2p4HvHAE8lscwxxy9FeAQ6N86pjwYYzWeweS0MjjSW90nDX2m/FbERlKrZ8KYhESkDsQG+tS9I6/hA==
-      JWT_REFRESH_SECRET: m1+HYtFe2p4HvHAE8lscwxxy9FeAQ6N86pjwYYzWeweS0MjjSW90nDX2m/FbERlKrZ8KYhESkDsQG+tS9I6/hA==
-      EMAIL_USER: jordanh316@gmail.com
-      EMAIL_PASS: Bentley07Sheridan
-    ports:
-      - "5000:5000"
-    command: ["node", "server.js"]
-    volumes:
-      - /app
-    networks:
-      - pdl-backend-network
-    restart: always
-
-networks:
-  pdl-backend-network:
-    driver: bridge
 volumes:
   pgdata:
