@@ -1,7 +1,4 @@
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
 
   services:
       backend:
