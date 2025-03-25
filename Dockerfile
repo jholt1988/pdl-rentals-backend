@@ -5,6 +5,15 @@ FROM node:23-alpine
 WORKDIR /app
 
 # Install only production dependencies
+# Install curl to fetch the dotenvx binary
+RUN npm update && npm install -y curl
+
+# Download and install dotenvx
+RUN curl -sfS https://dotenvx.sh/install.sh | sh
+
+# Ensure /usr/local/bin is in the PATH
+ENV PATH="/usr/local/bin:${PATH}"
+
 COPY package.json package-lock.json ./
 RUN npm ci --omit=dev
 
@@ -15,4 +24,5 @@ COPY . .
 EXPOSE 5000
 
 # Start the backend server
-CMD ["node", "server.js"]
+CMD ["dotenvx", "run",  "--env-file=.env.production", "--", "node", "server.js"]
+

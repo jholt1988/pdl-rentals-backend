@@ -1,0 +1,8 @@
+node_modules
+.git
+Dockerfile
+Dockerfile.bak
+docker-compose.yml
+compose.yml
+.env
+.env.keys

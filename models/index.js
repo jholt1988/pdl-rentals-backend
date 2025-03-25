@@ -1,3 +1,4 @@
+
 // Import required modules
 import { Sequelize } from 'sequelize';
 import Contractor from './contractor.mjs';
@@ -9,20 +10,14 @@ import Lease from './lease.js';
 import Tenant from './tenant.js';
 import LedgerEntry from './ledgerEntry.js';
 import Expense from './expense.js';
+import 'dotenv/config';
 
 // Initialize database object
 const db = {};
-
+console.log(process.env)
+console.log(process.env.DATABASE_URL);
 // Configure database connection
-const sequelize = new Sequelize({
-  dialect: "postgres",
-  host: "3.136.156.79", 
-  port: 5432,
-  username: "postgres",
-  password: "2284",
-  database: "PDL_development",
- logging:(msg)=>console.log(msg)
-});
+const sequelize = new Sequelize(process.env.DATABASE_URL,{dialect: 'postgres'});
 
 // Load models
 const models = [Contractor, Property, User, MaintenanceRequest, Payment, Lease, Tenant, LedgerEntry, Expense];

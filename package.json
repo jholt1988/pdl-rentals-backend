@@ -12,6 +12,7 @@
   "type": "module",
   "description": "",
   "dependencies": {
+    "@dotenvx/dotenvx": "^1.39.0",
     "@google-cloud/local-auth": "^2.1.0",
     "@react-oauth/google": "^0.12.1",
     "aws-sdk": "^2.1692.0",
