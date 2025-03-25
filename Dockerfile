@@ -10,6 +10,9 @@ RUN npm update && npm install -y curl
 
 # Download and install dotenvx
 RUN curl -sfS https://dotenvx.sh/install.sh | sh
+RUN ls -l /usr/local/bin/dotenvx
+RUN /usr/local/bin/dotenvx --version
+
 
 # Ensure /usr/local/bin is in the PATH
 ENV PATH="/usr/local/bin:${PATH}"
@@ -23,6 +26,6 @@ COPY . .
 # Expose backend port
 EXPOSE 5000
 
-# Start the backend server
-CMD ["dotenvx", "run",  "--env-file=.env.production", "--", "node", "server.js"]
+# Start the backend 
+CMD ["dotenvx", "run",  "--env-file=.env.production", "--", "node", "index.js"]
 
