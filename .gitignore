@@ -5,3 +5,7 @@ token.json
 oauth2.keys.json
 google_cred.json
 .env
+.env*
+.flaskenv*
+!.env.project
+!.env.vault
