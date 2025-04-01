@@ -27,5 +27,5 @@ COPY . .
 EXPOSE 5000
 
 # Start the backend 
-CMD ["dotenvx", "run",  "--env-file=.env.production", "--", "node", "index.js"]
+CMD ["node", "server.js"]
 
