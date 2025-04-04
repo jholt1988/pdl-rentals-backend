@@ -22,7 +22,7 @@ const sequelize = new Sequelize(
     database: "pdl_db",
     username: "postgres",
     password: "Admin2284JAH",
-    host: "pdl-db.cl8ii8es83sc.us-east-2.rds.amazonaws.com",
+    host: "pdl-db-1.cl8ii8es83sc.us-east-2.rds.amazonaws.com",
     port: 5432,
     dialect: "postgres",
   },
