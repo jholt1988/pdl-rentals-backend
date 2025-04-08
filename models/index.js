@@ -11,6 +11,7 @@ import Lease from './lease.js';
 import Tenant from './tenant.js';
 import LedgerEntry from './ledgerEntry.js';
 import Expense from './expense.js';
+import Notification from './notification.js';
 
 
 // Initialize database object
@@ -19,18 +20,18 @@ const db = {};
 // Configure database connection
 const sequelize = new Sequelize(
   {
-    database: "pdl_db",
+    database: "property_management",
     username: "postgres",
-    password: "Admin2284JAH",
-    host: "pdl-db-1.cl8ii8es83sc.us-east-2.rds.amazonaws.com",
-    port: 5432,
+    password: "postgres",
+    host: "18.218.213.59",
+    port: 5434,
     dialect: "postgres",
   },
   
 );
 
 // Load models
-const models = [Contractor, Property, User, MaintenanceRequest, Payment, Lease, Tenant, LedgerEntry, Expense];
+const models = [Contractor, Property, User, MaintenanceRequest, Payment, Notification,Lease, Tenant, LedgerEntry, Expense];
 models.forEach(model => {
   const initializedModel = model(sequelize, Sequelize.DataTypes);
   db[initializedModel.name] = initializedModel;

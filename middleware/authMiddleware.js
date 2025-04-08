@@ -12,7 +12,7 @@ const authMiddleware = (req, res, next) => {
     if (!token) return res.status(401).json({ message: 'Access Denied' });
 
     try {
-        const verified = jwt.verify(token, process.env.JWT_SECRET);
+        const verified = jwt.verify(token,"abc123");
         console.log(verified);
         req.user = verified;
         next();

@@ -20,6 +20,8 @@ import userRoutes from "./routes/userRoutes.js";
 import paymentRoutes from "./routes/paymentRoutes.js";
 import maintenanceRoutes from "./routes/maintenanceRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
+import notificationRoutes from "./routes/notificationRoutes.js";
+import reportsRoutes from "./routes/reportsRoutes.js";  
 
 const frontendRegex= new RegExp('https://pdl-rentals-frontend[a-zA-Z0-9]*\.vercel\.app');
 
@@ -47,7 +49,7 @@ app.use(helmet());
 app.use(morgan("common"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
-
+app.use(cors("*"))
 
 // app.options(function (req, res, next) {
 //     const allowedOrigins = ["https://pdl-rentals-frontend.vercel.app"];
@@ -107,13 +109,16 @@ app.get('/health', (req, res) => {
 
 
 // Use Routes with authentication
-app.use("/api/leases", authenticateToken, leaseRoutes);
+app.use("/api/leases", leaseRoutes);
 // app.use("/api/auth", authRoutes);
-app.use("/api/properties", authenticateToken, propertyRoutes);
+app.use("/api/properties", propertyRoutes);
 app.use("/api/users", userRoutes);
-app.use("/api/payments", authenticateToken, paymentRoutes);
-app.use("/api/maintenance", authenticateToken, maintenanceRoutes);
-app.use("/api/admin", authenticateToken, adminRoutes);
+app.use("/api/payments", paymentRoutes);
+app.use("/api/maintenance", maintenanceRoutes);
+app.use("/api/admin", adminRoutes);
+app.use("/api/notifications", notificationRoutes);
+app.use("/api/reports", reportsRoutes);
+// app.use("/api/auth", authRoutes
 
 const PORT = process.env.PORT || 5000;
 

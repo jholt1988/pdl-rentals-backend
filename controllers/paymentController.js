@@ -1,5 +1,6 @@
-import Payment from "../models/payment.js"
+import db from "../models/index.js";
 
+const { Payment } = db;
 const paymentController = {
     getAllPayments: async (req, res) => {
         try { const properties = await Payment.findAll(); res.json(properties); }

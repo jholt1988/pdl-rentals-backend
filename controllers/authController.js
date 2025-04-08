@@ -10,8 +10,8 @@ const authController = {
     register: async (req, res) => {
         try {
             const { name, email, password, role } = req.body;
-            const hashedPassword = await hash(password, 10);
-            const user = await User.create({ name, email, password: hashedPassword, role });
+           
+              await User.create({ name, email, password, role });
             res.status(201).json({ message: "User registered successfully" });
         } catch (err) {
             res.status(500).json({ error: err.message });
@@ -28,8 +28,8 @@ console.log(email,password)
             const isMatch = await compare(password, user.password);
             if (!isMatch) return res.status(400).json({ error: "Invalid credentials" });
 
-            const accessToken = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: "1h" });
-            const refreshToken = jwt.sign({ id: user.id }, process.env.JWT_REFRESH_SECRET, { expiresIn: "7d" });
+            const accessToken = jwt.sign({ id: user.id, role: user.role }, "abc123", { expiresIn: "1h" });
+            const refreshToken = jwt.sign({ id: user.id }, "abc123", { expiresIn: "7d" });
             // res.status(200).json({ accessToken, refreshToken, user })
         res.send({ accessToken, refreshToken, user });
         } catch (err) {

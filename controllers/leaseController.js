@@ -1,5 +1,6 @@
-import * as Lease  from "../models/lease.js"
+import db from "../models/index.js";
 
+const { Lease } = db;
 const leaseController = {
     getAllLeases: async (req, res) => {
         try { const properties = await Lease.findAll(); res.json(properties); }
