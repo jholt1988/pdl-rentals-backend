@@ -12,6 +12,17 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+      - 
+  
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    environment:
+      REACT_APP_API_URL: http://18.218.213.59/5000
+      REACT_APP_API_KEY: 1234567890abcdefg
 
   backend:
     build: .
