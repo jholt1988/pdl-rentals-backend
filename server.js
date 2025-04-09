@@ -5,7 +5,6 @@ import express from"express";
 import cors from"cors";
 import helmet from"helmet";
 import morgan from "morgan";
-
 import { sequelize } from"./models/index.js";
 
 import jwt from"jsonwebtoken";
@@ -50,6 +49,7 @@ app.use(morgan("common"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use(cors("*"))
+
 
 // app.options(function (req, res, next) {
 //     const allowedOrigins = ["https://pdl-rentals-frontend.vercel.app"];
