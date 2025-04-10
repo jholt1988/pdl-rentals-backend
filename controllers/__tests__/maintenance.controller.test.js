@@ -1,10 +1,10 @@
 // src/controllers/__tests__/maintenance.controller.test.js
 import request from 'supertest';
 import app from '../../server.js';
-import db from '../../models/index.js';
+import {sequelize} from '../../models/index.js';
 
 beforeAll(async () => {
-    await db.sequelize.sync({ force: true });
+    await sequelize.sync({ force: true });
 });
 
 describe('Maintenance API', () => {

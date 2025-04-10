@@ -42,6 +42,30 @@ const notificationController = {
         } catch (err) {
             res.status(500).json({ error: 'Failed to delete notification' });
         }
+    },
+     getForUser : async (req, res) => {
+        try {
+            const notifications = await Notification.findAll({
+                where: { userId: req.params.userId },
+                order: [['createdAt', 'DESC']],
+            });
+            res.json(notifications);
+        } catch (err) {
+            res.status(500).json({ error: 'Failed to get notifications' });
+        }
+    }, 
+     markAsRead : async (req, res) => {
+        try {
+            const notification = await Notification.findByPk(req.params.id);
+            if (!notification) return res.status(404).json({ error: 'Not found' });
+
+            await notification.update({ read: true });
+            const io = req.app.get('io');
+            io.emit('notification:update', notification);
+            res.json(notification);
+        } catch (err) {
+            res.status(500).json({ error: 'Failed to mark notification as read' });
+        }
     }
 }
 
