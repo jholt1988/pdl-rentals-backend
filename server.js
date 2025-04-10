@@ -145,3 +145,4 @@ sequelize.sync({ force: false }).then(() => {
 // generateModels.forEach(cmd => execSync(cmd, { stdio: 'inherit' }));
 
 // console.log("All Sequelize models and migrations have been generated.");
+export default app;

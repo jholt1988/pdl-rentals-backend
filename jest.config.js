@@ -1,16 +1,10 @@
-module.exports = {
-  testEnvironment: "node",
- " --experimental - vm - modules node_modules / jest / bin / jest.js",
-  testPathIgnorePatterns: ["/node_modules/", "/dist/"],
-
-  setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
-  
-  transform: {
-    "^.+\\.[t|j]sx?$": "babel-jest"
-  },
-  transformIgnorePatterns: [
-    "node_modules/(?!(@babel)/)"
-  ],
-
-
+// jest.config.js
+export default {
+    testEnvironment: 'node',
+    transform: {},
+    roots: ['<rootDir>'],
+    moduleFileExtensions: ['js', 'mjs','json'],
+    coverageDirectory: 'coverage',
+    testMatch: ['**/*.test.js', '**/*.test.mjs'],
+    collectCoverageFrom: ['/**/*.js', '/**/*.mjs','/**/*.test.mjs', '/**/*.test.js']
 };
