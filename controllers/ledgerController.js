@@ -82,20 +82,48 @@ export const sendPaymentReceipt = async (paymentId) => {
 }
 
 export const createTenantPaymentStatement = async (req, res) => {
-  const tenantId = req.params.tenantId;
-  try {
-    const entries = await LedgerEntry.findAll({ where: {  tenantId } });
-    const tenant = await Tenant.findByPk(tenantId);
-    if (!tenant) throw new Error('Tenant not found');
-    const outputPath = `./tmp/Payment_Statement_${tenant.name}${Date.now()}.pdf`;
-    // Await the promise so that statement is the file path
-   await generatePaymentStatement({tenant, entries}, outputPath);
-    // Ensure parameters match: (to, email, filePath)
-   
-  } catch (error) {
-    console.error('Error sending tenant statement:', error);
-  }
-};
+  router.get('/tenants/:id/statement', async (req, res) => {
+    try {
+      const tenantId = req.params.id;
+      const tenant = await db.Tenant.findByPk(tenantId);
+      const payments = await db.Payment.findAll({ where: { tenantId }, raw: true });
+      const leases = await db.Lease.findAll({ where: { tenantId }, raw: true });
+
+      const entries = [];
+
+      leases.forEach((lease) => {
+        const rentDate = new Date(lease.startDate);
+        while (rentDate <= new Date(lease.endDate)) {
+          entries.push({
+            date: new Date(rentDate),
+            description: 'Rent Charge',
+            debit: lease.rentAmount,
+            credit: 0
+          });
+          rentDate.setMonth(rentDate.getMonth() + 1);
+        }
+      });
+
+      payments.forEach((p) => {
+        entries.push({
+          date: p.createdAt,
+          description: `Payment - ${p.method}`,
+          debit: 0,
+          credit: p.amount
+        });
+      });
+
+      entries.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+      const pdfBuffer = await generatePaymentStatement({ tenant, entries });
+      res.setHeader('Content-Type', 'application/pdf');
+      res.setHeader('Content-Disposition', `attachment; filename="statement-${tenant.id}.pdf"`);
+      res.send(pdfBuffer);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Failed to generate statement' });
+    }
+  });
 
 export const sendTenantStatement = async (req, res) => {
   try {

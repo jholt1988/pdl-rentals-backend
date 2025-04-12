@@ -1,43 +1,38 @@
-// models/LedgerEntry.js
-'use strict';
-import { Model } from 'sequelize';
+// models/ledgerentry.js
 export default (sequelize, DataTypes) => {
-    class LedgerEntry extends Model {
-        static associate(models) {
-            // Associate a ledger entry with a tenant (and optionally a lease)
-            LedgerEntry.belongsTo(models.Tenant, { foreignKey: 'tenantId' });
-            LedgerEntry.belongsTo(models.Lease, { foreignKey: 'leaseId' });
-        }
-    }
-    LedgerEntry.init(
-        {
-            tenantId: {
-                type: DataTypes.INTEGER,
-                allowNull: false,
-            },
-            leaseId: {
-                type: DataTypes.INTEGER,
-                allowNull: true,
-            },
-            type: {
-                type: DataTypes.ENUM('charge', 'payment'),
-                allowNull: false,
-            },
-            amount: {
-                type: DataTypes.DECIMAL(10, 2),
-                allowNull: false,
-            },
-            description: DataTypes.STRING,
-            date: {
-                type: DataTypes.DATE,
-                allowNull: false,
-                defaultValue: DataTypes.NOW,
-            },
+    const LedgerEntry = sequelize.define('LedgerEntry', {
+        tenantId: {
+            type: DataTypes.INTEGER,
+            allowNull: false
         },
-        {
-            sequelize,
-            modelName: 'LedgerEntry',
+        date: {
+            type: DataTypes.DATEONLY,
+            allowNull: false
+        },
+        description: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        debit: {
+            type: DataTypes.FLOAT,
+            defaultValue: 0
+        },
+        credit: {
+            type: DataTypes.FLOAT,
+            defaultValue: 0
+        },
+        type: {
+            type: DataTypes.ENUM('charge', 'adjustment', 'note'),
+            defaultValue: 'charge'
+        },
+        createdBy: {
+            type: DataTypes.STRING
         }
-    );
+    });
+
+    LedgerEntry.associate = (models) => {
+        LedgerEntry.belongsTo(models.Tenant, { foreignKey: 'tenantId' });
+    };
+
     return LedgerEntry;
 };

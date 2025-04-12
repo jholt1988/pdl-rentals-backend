@@ -3,9 +3,9 @@ import request from 'supertest';
 import app from '../../server.js';
 import {sequelize} from '../../models/index.js';
 
-beforeAll(async () => {
-    await sequelize.sync({ force: true });
-});
+// beforeAll(async () => {
+//     await sequelize.sync({ force: true });
+// });
 
 describe('Leases API', () => {
     it('should create a lease', async () => {

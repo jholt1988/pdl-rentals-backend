@@ -1,10 +1,15 @@
 {
   "development": {
-    "url": "posrgres://postgres:2284@db:5432/PDL_development",
+    "url": "postgres://postgres:postgres@18.219.234.156:5432/property_management",
     "dialect": "postgres"
   },
   "production": {
-    "url": "posrgres://postgres:2284@db:5432/PDL_development",
+    "url": "postgres://postgres:2284@db:5432/PDL_development",
     "dialect": "postgres"
+  },
+  "test": {
+    "dialect": "sqlite",
+    "storage": ":memory:",
+    "logging": false
   }
 }

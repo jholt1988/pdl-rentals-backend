@@ -5,9 +5,9 @@ import app from '../../server.js';
 import {sequelize} from '../../models/index.js';
 import path from 'path';
 
-beforeAll(async () => {
-    await sequelize.sync({ force: true });
-});
+// beforeAll(async () => {
+//     await sequelize.sync({ force: true });
+// });
 
 describe('Documents API', () => {
     it('should upload a document', async () => {

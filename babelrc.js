@@ -1,3 +1,5 @@
+const { plugin } = require("mongoose");
+
 module.exports = {
     presets: [
         [
@@ -13,5 +15,6 @@ module.exports = {
     "transform": {
         "\\[jt]sx?$": "babel-jest",
         "\\.css$": "some-css-transformer",
-    }
+    },
+    plugin:["istanbul"]
 };

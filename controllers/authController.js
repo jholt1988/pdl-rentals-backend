@@ -94,6 +94,15 @@ console.log(email,password)
         } catch (err) {
             res.status(500).json({ error: err.message });
         }
+    },
+    // src/controllers/auth.controller.js
+ getCurrentUser : async(req, res) => {
+        res.json({
+            id: req.user.id,
+            email: req.user.email,
+            role: req.user.role,
+            name: req.user.name || 'User'
+        });
     }
 };
 

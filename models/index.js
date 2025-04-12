@@ -23,8 +23,8 @@ const sequelize = new Sequelize(
     database: "property_management",
     username: "postgres",
     password: "postgres",
-    host: "18.218.213.59",
-    port: 5434,
+    host: "18.219.234.156",
+    port: 5432,
     dialect: "postgres",
   },
   
