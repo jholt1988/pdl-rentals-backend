@@ -21,6 +21,10 @@ import maintenanceRoutes from "./routes/maintenanceRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
 import notificationRoutes from "./routes/notificationRoutes.js";
 import reportsRoutes from "./routes/reportsRoutes.js";  
+import authRoutes from "./routes/authRoutes.js";
+import  tenantRoutes from "./routes/tenantRoutes.js";
+// Import reports routes
+// import { sendEmail } from './utils/email.js';
 
 const frontendRegex= new RegExp('https://pdl-rentals-frontend[a-zA-Z0-9]*\.vercel\.app');
 
@@ -110,7 +114,7 @@ app.get('/health', (req, res) => {
 
 // Use Routes with authentication
 app.use("/api/leases", leaseRoutes);
-// app.use("/api/auth", authRoutes);
+app.use("/api/auth", authRoutes);
 app.use("/api/properties", propertyRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/payments", paymentRoutes);
@@ -118,7 +122,8 @@ app.use("/api/maintenance", maintenanceRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/notifications", notificationRoutes);
 app.use("/api/reports", reportsRoutes);
-// app.use("/api/auth", authRoutes
+app.use("/api/tenants", tenantRoutes);
+// app.use("/api/
 
 const PORT = process.env.PORT || 5000;
 

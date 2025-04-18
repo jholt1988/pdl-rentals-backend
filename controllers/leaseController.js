@@ -1,44 +1,78 @@
 import db from "../models/index.js";
 
 const { Lease } = db;
+
+const handleError = (res, err) => {
+    console.error('Operation failed:', err);
+    const status = err.name === 'SequelizeValidationError' ? 400 : 500;
+    res.status(status).json({ error: err.message });
+};
+
 const leaseController = {
     getAllLeases: async (req, res) => {
-        try { const properties = await Lease.findAll(); res.json(properties); }
-        catch (err) { res.status(500).json({ error: err.message }); }
-    },
-    createLease: async (req, res) => {
-        try { const lease = await Lease.create(req.body); res.status(201).json(lease); }
-        catch (err) { res.status(500).json({ error: err.message }); }
-    },
-    updateLease: async (req, res) => {
         try {
-            const lease = await Lease.findByPk(req.params.id);
-            if (!lease) return res.status(404).json({ error: "Lease not found" });
-            await lease.update(req.body);
-            res.json(lease);
+            const leases = await Lease.findAll();
+            res.status(200).json(leases);
         } catch (err) {
-            res.status(500).json({ error: err.message });
+            handleError(res, err);
         }
     },
+
+    createLease: async (req, res) => {
+        try {
+            if (!req.body || Object.keys(req.body).length === 0) {
+                return res.status(400).json({ error: "Request body cannot be empty" });
+            }
+            const lease = await Lease.create(req.body);
+            res.status(201).json(lease);
+        } catch (err) {
+            handleError(res, err);
+        }
+    },
+
+    updateLease: async (req, res) => {
+        try {
+            if (!req.body || Object.keys(req.body).length === 0) {
+                return res.status(400).json({ error: "Request body cannot be empty" });
+            }
+            const lease = await Lease.findByPk(req.params.id);
+            if (!lease) {
+                return res.status(404).json({ error: "Lease not found" });
+            }
+            await lease.update(req.body);
+            res.status(200).json(lease);
+        } catch (err) {
+            handleError(res, err);
+        }
+    },
+
     deleteLease: async (req, res) => {
         try {
             const lease = await Lease.findByPk(req.params.id);
-            if (!lease) return res.status(404).json({ error: "Lease not found" });
+            if (!lease) {
+                return res.status(404).json({ error: "Lease not found" });
+            }
             await lease.destroy();
-            res.json({ message: "Lease deleted" });
+            res.status(200).json({ message: "Lease deleted" });
         } catch (err) {
-            res.status(500).json({ error: err.message });
+            handleError(res, err);
         }
-    }, 
+    },
+
     getLeaseById: async (req, res) => {
         try {
-            const lease = await Lease.findByPk(req.params.id);
-            if (!lease) return res.status(404).json({ error: "Lease not found" });
-            res.json(lease);
+            const lease = await Lease.findByPk(req.params.id, {
+                // Add specific attributes if you don't need all fields
+                // attributes: ['id', 'startDate', 'endDate', 'amount']
+            });
+            if (!lease) {
+                return res.status(404).json({ error: "Lease not found" });
+            }
+            res.status(200).json(lease);
         } catch (err) {
-            res.status(500).json({ error: err.message });
+            handleError(res, err);
         }
     }
 };
 
-export default leaseController
+export default leaseController;

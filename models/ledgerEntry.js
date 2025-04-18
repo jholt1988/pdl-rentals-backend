@@ -22,7 +22,7 @@ export default (sequelize, DataTypes) => {
             defaultValue: 0
         },
         type: {
-            type: DataTypes.ENUM('charge', 'adjustment', 'note'),
+            type: DataTypes.ENUM('charge', 'adjustment', 'note', "payment"),
             defaultValue: 'charge'
         },
         createdBy: {
