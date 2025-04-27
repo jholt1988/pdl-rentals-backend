@@ -11,7 +11,15 @@ const handleError = (res, err) => {
 const leaseController = {
     getAllLeases: async (req, res) => {
         try {
-            const leases = await Lease.findAll();
+            const leases = await Lease.findAll({
+                include: [{
+                    model: db.Customer,
+                    attributes: ['id', 'name', 'email', 'phone', ]
+                }, {
+                    model: db.Property,
+                    attributes: ['id', 'name', 'address', 'city', 'state', 'zip']
+                }],
+            });
             res.status(200).json(leases);
         } catch (err) {
             handleError(res, err);
