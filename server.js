@@ -22,7 +22,8 @@ import adminRoutes from "./routes/adminRoutes.js";
 import notificationRoutes from "./routes/notificationRoutes.js";
 import reportsRoutes from "./routes/reportsRoutes.js";  
 import authRoutes from "./routes/authRoutes.js";
-import  tenantRoutes from "./routes/tenantRoutes.js";
+import tenantRoutes from "./routes/tenantRoutes.js";
+import { io } from "./server/socketServer.js"; // Import socket.io instance
 // Import reports routes
 // import { sendEmail } from './utils/email.js';
 
@@ -120,7 +121,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/payments", paymentRoutes);
 app.use("/api/maintenance", maintenanceRoutes);
 app.use("/api/admin", adminRoutes);
-app.use("/api/notifications", notificationRoutes);
+app.use("/api/notifications", io, notificationRoutes);
 app.use("/api/reports", reportsRoutes);
 app.use("/api/tenants", tenantRoutes);
 // app.use("/api/
